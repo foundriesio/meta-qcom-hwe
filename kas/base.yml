@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siemens/kas/master/kas/schema-kas.json
+
+header:
+  version: 14
+
+distro: poky
+
+defaults:
+  repos:
+    branch: master
+
+repos:
+  meta-qcom-hwe:
+  meta-qcom:
+    url: https://github.com/Linaro/meta-qcom
+  poky:
+    url: https://git.yoctoproject.org/git/poky
+    layers:
+      meta:
+      meta-poky:
+
+local_conf_header:
+  base: |
+    CONF_VERSION = "2"
+    BB_SERVER_TIMEOUT = "300"
+    INIT_MANAGER = "systemd"
+  setup: |
+    PACKAGE_CLASSES = "package_ipk"
+    INHERIT += "rm_work"
+  extrapackages: |
+    CORE_IMAGE_EXTRA_INSTALL += "ldd"
+
+machine: unset
